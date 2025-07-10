@@ -2,7 +2,6 @@ import { describe, test, expect } from 'bun:test'
 
 import brandService from '../src/services/brand.service'
 import data from './fixtures/brands.fixture'
-import type { Product } from '../src/types/Product'
 
 describe('Brand Service', async () => {
   test('should return all products for a brand', async () => {

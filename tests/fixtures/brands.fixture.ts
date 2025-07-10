@@ -149,8 +149,9 @@ export default {
         visible: 1,
         description_markdown: '',
         image: 'ar388d0482c0da0500f78af4e0ddc9db1f6cd3aa81.png',
-        image_url: 'https:\/\/cdn.huggg.me\/locations\/ar388d0482c0da0500f78af4e0ddc9db1f6cd3aa81.png',
-        latitude: '51.504108'
+        image_url:
+          'https://cdn.huggg.me/locations/ar388d0482c0da0500f78af4e0ddc9db1f6cd3aa81.png',
+        latitude: '51.504108',
       },
     ],
   },
