@@ -1,37 +1,67 @@
+import 'reflect-metadata'
+
 import { Hono } from 'hono'
+import { describeRoute } from 'hono-openapi'
+import { tbValidator } from '@hono/typebox-validator'
+import { Type } from '@sinclair/typebox'
+import { tsyringe } from '@hono/tsyringe'
 
-import brandService from './services/brand.service'
-import productService from './services/product.service'
+import loadJsonData from './data/load'
 
-import loadData from './data/load'
 import config from '../config/config'
+
+import type { BrandsData } from './types/Brand'
+import { Pagination } from './types/api/Pagination'
+
+import paginationMiddleware from './middleware/pagination.middleware'
+import controller from './middleware/resolve.middleware'
+
+import { GetBrandProductsOpenApi } from './schema/brands.schema'
+import { GetProductStoresOpenApi } from './schema/products.schema'
+
+import BrandController from './controllers/brand.controller'
+import ProductController from './controllers/product.controller'
 
 console.info('Starting server...')
 
 console.info('Loading brands, products and stores into memory...')
-const data = await loadData()
+console.time('loadData Time')
+let data: BrandsData
+try {
+  data = await loadJsonData<BrandsData>('brands.json')
+} catch (error) {
+  console.error('Error loading data:', error)
+  process.exit(1)
+}
+console.timeEnd('loadData Time')
 
 const app = new Hono()
 
-app.get('/brands/:id/products', c => {
-  const { id } = c.req.param()
+app.use('*', tsyringe((container) => {
+  container.register('brands', { useValue: data })
+}))
 
-  if (!data.data.find(b => b.id === id)) {
-    return c.notFound()
-  }
+app.notFound((c) => c.json({ error: 'Not found' }, 404))
 
-  return c.json({ products: brandService.getProducts(id, data) })
-})
+app.get(
+  '/brands/:id/products',
+  describeRoute(GetBrandProductsOpenApi),
+  paginationMiddleware,
+  tbValidator('query', Pagination),
+  tbValidator('param', Type.Object({ id: Type.String() })),
+  controller(BrandController, 'getProducts')
+)
 
-app.get('/products/:id/stores', c => {
-  const { id } = c.req.param()
+app.get(
+  '/products/:id/stores',
+  describeRoute(GetProductStoresOpenApi),
+  paginationMiddleware,
+  tbValidator('query', Pagination),
+  tbValidator('param', Type.Object({ id: Type.String() })),
+  controller(ProductController, 'getStores')
+)
 
-  if (!data.embedded.products.find(p => p.id === id)) {
-    return Response.json({ error: 'Product not found' }, { status: 404 })
-  }
-
-  return Response.json({ stores: productService.getStores(id, data) })
-})
+export { app }
 
 export default {
   port: config.port,

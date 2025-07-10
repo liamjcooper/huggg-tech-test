@@ -1,3 +1,5 @@
+import type { Static } from '@sinclair/typebox'
+
 import type { Product } from './Product'
 import type { Store } from './Store'
 
@@ -44,7 +46,7 @@ export interface BrandsData {
   to: number
   total: number
   embedded: {
-    products: Product[]
-    stores: Store[]
+    products: Static<typeof Product>[]
+    stores: Static<typeof Store>[]
   }
 }

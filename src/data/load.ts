@@ -1,10 +1,10 @@
 import path from 'path'
-import type { BrandsData } from '../types/Brand'
 
-export default async (): Promise<BrandsData> => {
+export default async <T>(filename: string): Promise<T> => {
   const file = await Bun.file(
-    path.join(process.cwd(), 'src', 'data', 'brands.json'),
+    path.join(process.cwd(), 'src', 'data', filename),
     { type: 'application/json' }
   ).text()
+
   return JSON.parse(file)
 }

@@ -2,7 +2,22 @@
 
 Built with Bun + Hono 🔥
 
-Loads the JSON data into memory on server boot, exposes a couple of endpoints, following a service pattern + some integration/unit testing. Default port is 3000 but if you'd like to you can inject an env at command time `PORT=3000 ...`.
+Default port is 3000 but if you'd like to you can inject the env at command time with `PORT=3000 ...`.
+
+Some stand out features:
+
+- TypeScript
+- Dependency injection
+- Open API schema generation
+- Integration + unit tests
+- Controller & service pattern w/ middleware
+- Schema consolidation w/ TypeBox
+- One-time read of static brand data before server has booted w/ timing log
+- Basic observability, native console logging/info/erroring
+- Error handling of file I/O, missing resources (404) and uncaught exceptions (500)
+- Pagination
+- API validation
+- Containerisation
 
 Endpoints:
 
@@ -29,13 +44,16 @@ bun start
 To run tests, run the start command or make sure the server is already running, then in another process:
 
 ```bash
-bun test
+bun run test
+```
+
+You can also generate the open API specs with:
+
+```bash
+bun run generate:oas
 ```
 
 Possible improvements:
 
-- [ ] Pagination for the brands data to improve efficiency, could be done with local data
-- [ ] Import data into an SQLite instance to allow for more data and keep speed up
-- [ ] For API tests, seeding the data into a database for more controllable integration testing
-- [ ] Extracting route logic into controller classes for dependency injection, making the logic easily testable by swapping implementations of external concerns
-- [ ] Building on above improvements, could generate Open API schemas from the endpoints automatically, Hono has a tight integration to help with this
+- [ ] Import data into an SQLite instance to allow for scalability
+- [ ] Seed fixture data into the database for more controllable and separated integration testing

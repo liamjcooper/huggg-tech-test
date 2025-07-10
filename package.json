@@ -3,12 +3,12 @@
   "module": "src/index.ts",
   "scripts": {
     "start": "bun --watch src/index.ts",
-    "test": "bun --watch test"
+    "test": "bun --watch test --preload ./tests/index.ts",
+    "generate:oas": "bun run scripts/generate-oas.ts"
   },
   "devDependencies": {
     "@types/bun": "^1.2.18",
     "eslint": "^9.30.1",
-    "install": "^0.13.0",
     "neostandard": "^0.12.2",
     "npm": "^11.4.2"
   },
@@ -18,6 +18,11 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "hono": "^4.8.4"
+    "@hono/tsyringe": "^1.0.1",
+    "@hono/typebox-validator": "^0.3.3",
+    "@sinclair/typebox": "^0.34.37",
+    "hono": "^4.8.4",
+    "hono-openapi": "^0.4.8",
+    "reflect-metadata": "^0.2.2"
   }
 }

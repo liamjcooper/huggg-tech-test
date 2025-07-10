@@ -1,0 +1,450 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Huggg API",
+    "description": "Huggg API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local Server"
+    }
+  ],
+  "paths": {
+    "/brands/{id}/products": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "products": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "type": "string"
+                          },
+                          "brand_id": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "campaign": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "nullable": true
+                              }
+                            ]
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "internal_name": {
+                            "type": "string"
+                          },
+                          "integration": {
+                            "type": "string"
+                          },
+                          "price": {
+                            "type": "string"
+                          },
+                          "over_18_offer": {
+                            "type": "number"
+                          },
+                          "redemption_instructions": {
+                            "type": "string"
+                          },
+                          "image": {
+                            "type": "string"
+                          },
+                          "subtitle": {
+                            "type": "string"
+                          },
+                          "weight": {
+                            "type": "number"
+                          },
+                          "recipient_description": {
+                            "type": "string"
+                          },
+                          "tag_group_id": {
+                            "type": "string"
+                          },
+                          "tag_id": {
+                            "type": "string"
+                          },
+                          "open_graph_image": {
+                            "type": "string"
+                          },
+                          "active": {
+                            "type": "number"
+                          },
+                          "on_app": {
+                            "type": "number"
+                          },
+                          "on_imessage": {
+                            "type": "number"
+                          },
+                          "handling_fee": {
+                            "type": "number"
+                          },
+                          "sale_price": {
+                            "type": "number"
+                          },
+                          "huggg_tag": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "nullable": true
+                              }
+                            ]
+                          },
+                          "vat_voucher_type": {
+                            "type": "string"
+                          },
+                          "vat": {
+                            "anyOf": [
+                              {
+                                "type": "number",
+                                "nullable": true
+                              }
+                            ]
+                          },
+                          "brand_name": {
+                            "type": "string"
+                          },
+                          "brand_weight": {
+                            "type": "number"
+                          },
+                          "image_url": {
+                            "type": "string"
+                          },
+                          "claim_image": {
+                            "type": "string"
+                          },
+                          "claim_image_url": {
+                            "type": "string"
+                          },
+                          "imessage_image": {
+                            "type": "string"
+                          },
+                          "imessage_image_url": {
+                            "type": "string"
+                          },
+                          "open_graph_image_url": {
+                            "type": "string"
+                          },
+                          "pivot": {
+                            "type": "object",
+                            "properties": {
+                              "brand_id": {
+                                "type": "string"
+                              },
+                              "price_id": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "brand_id",
+                              "price_id"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "created_at",
+                          "updated_at",
+                          "brand_id",
+                          "description",
+                          "campaign",
+                          "label",
+                          "internal_name",
+                          "integration",
+                          "price",
+                          "over_18_offer",
+                          "redemption_instructions",
+                          "image",
+                          "subtitle",
+                          "weight",
+                          "recipient_description",
+                          "tag_group_id",
+                          "tag_id",
+                          "open_graph_image",
+                          "active",
+                          "on_app",
+                          "on_imessage",
+                          "handling_fee",
+                          "sale_price",
+                          "huggg_tag",
+                          "vat_voucher_type",
+                          "vat",
+                          "brand_name",
+                          "brand_weight",
+                          "image_url",
+                          "claim_image",
+                          "claim_image_url",
+                          "imessage_image",
+                          "imessage_image_url",
+                          "open_graph_image_url"
+                        ]
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "page": {
+                          "default": "1",
+                          "type": "number"
+                        },
+                        "limit": {
+                          "default": "10",
+                          "type": "number"
+                        },
+                        "count": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "page",
+                        "limit",
+                        "count"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "products",
+                    "pagination"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Brand not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "example": "Not found",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getBrandsByIdProducts",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The ID of the brand",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "description": "The number of items to return",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "default": "10",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "description": "The page number to return",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "default": "1",
+              "type": "string"
+            }
+          }
+        ],
+        "description": "Get products for a brand"
+      }
+    },
+    "/products/{id}/stores": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "stores": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "brand_id": {
+                            "type": "string"
+                          },
+                          "latitiude": {
+                            "type": "string"
+                          },
+                          "longitude": {
+                            "type": "string"
+                          },
+                          "website": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "nullable": true
+                              }
+                            ]
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "visible": {
+                            "type": "number"
+                          },
+                          "description_markdown": {
+                            "type": "string"
+                          },
+                          "image": {
+                            "type": "string"
+                          },
+                          "image_url": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "brand_id",
+                          "latitiude",
+                          "longitude",
+                          "website",
+                          "name",
+                          "description",
+                          "visible",
+                          "description_markdown",
+                          "image",
+                          "image_url"
+                        ]
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "page": {
+                          "default": "1",
+                          "type": "number"
+                        },
+                        "limit": {
+                          "default": "10",
+                          "type": "number"
+                        },
+                        "count": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "page",
+                        "limit",
+                        "count"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "stores",
+                    "pagination"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "example": "Not found",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getProductsByIdStores",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The ID of the product",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "description": "The number of items to return",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "default": "10",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "description": "The page number to return",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "default": "1",
+              "type": "string"
+            }
+          }
+        ],
+        "description": "Get stores for a product"
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}
