@@ -11,16 +11,9 @@ import loadJsonData from './data/load'
 import config from '../config/config'
 
 import type { BrandsData } from './types/Brand'
-import { Pagination } from './types/api/Pagination'
 
-import paginationMiddleware from './middleware/pagination.middleware'
-import controller from './middleware/resolve.middleware'
-
-import { GetBrandProductsOpenApi } from './schema/brands.schema'
-import { GetProductStoresOpenApi } from './schema/products.schema'
-
-import BrandController from './controllers/brand.controller'
-import ProductController from './controllers/product.controller'
+import brandsRouter from './routes/brands.routes'
+import productsRouter from './routes/products.routes'
 
 console.info('Starting server...')
 
@@ -43,23 +36,8 @@ app.use('*', tsyringe((container) => {
 
 app.notFound((c) => c.json({ error: 'Not found' }, 404))
 
-app.get(
-  '/brands/:id/products',
-  describeRoute(GetBrandProductsOpenApi),
-  paginationMiddleware,
-  tbValidator('query', Pagination),
-  tbValidator('param', Type.Object({ id: Type.String() })),
-  controller(BrandController, 'getProducts')
-)
-
-app.get(
-  '/products/:id/stores',
-  describeRoute(GetProductStoresOpenApi),
-  paginationMiddleware,
-  tbValidator('query', Pagination),
-  tbValidator('param', Type.Object({ id: Type.String() })),
-  controller(ProductController, 'getStores')
-)
+app.route('/brands', brandsRouter)
+app.route('/products', productsRouter)
 
 export { app }
 
