@@ -57,3 +57,5 @@ Possible improvements:
 
 - [ ] Import data into an SQLite instance to allow for scalability
 - [ ] Seed fixture data into the database for more controllable and separated integration testing
+- [ ] API tokens + rate limiting
+- [ ] CORS
