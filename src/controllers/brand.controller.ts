@@ -14,7 +14,7 @@ import type { Product } from '../types/Product'
 export default class BrandController {
   constructor (private readonly brandService: BrandService) {}
 
-  getProducts (c: Context) {
+  async getProducts (c: Context) {
     const { id } = c.req.param()
     const { limit = '10', page = '1' } = c.req.query()
 
@@ -23,7 +23,8 @@ export default class BrandController {
     let products: PaginatedData<Static<typeof Product>>
 
     try {
-      products = this.brandService.getProducts(id!, { limit, page })
+      products = await this.brandService.getProducts(id!, { limit, page })
+      console.log(products)
     } catch (error) {
       console.error(`Error getting products for brand: ${id}`, error)
 
@@ -34,8 +35,8 @@ export default class BrandController {
       }
     }
 
-    console.log(`Found ${products.data.length} products for brand: ${id}`)
+    console.log(`Found ${products.products.length} products for brand: ${id}`)
 
-    return c.json({ products: products.data, pagination: products.pagination })
+    return c.json({ products })
   }
 }
