@@ -1,10 +1,12 @@
 import 'reflect-metadata'
+import 'dotenv/config'
 
 import { Hono } from 'hono'
 import { describeRoute } from 'hono-openapi'
 import { tbValidator } from '@hono/typebox-validator'
 import { Type } from '@sinclair/typebox'
 import { tsyringe } from '@hono/tsyringe'
+import { drizzle } from 'drizzle-orm/bun-sql'
 
 import loadJsonData from './data/load'
 
@@ -22,7 +24,10 @@ import { GetProductStoresOpenApi } from './schema/products.schema'
 import BrandController from './controllers/brand.controller'
 import ProductController from './controllers/product.controller'
 
+import * as schema from './database/schema'
+
 console.info('Starting server...')
+const db = drizzle(process.env.DATABASE_URL!, { schema })
 
 console.info('Loading brands, products and stores into memory...')
 console.time('loadData Time')
@@ -39,6 +44,7 @@ const app = new Hono()
 
 app.use('*', tsyringe((container) => {
   container.register('brands', { useValue: data })
+  container.register('db', { useValue: db })
 }))
 
 app.notFound((c) => c.json({ error: 'Not found' }, 404))

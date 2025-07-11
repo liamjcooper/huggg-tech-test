@@ -4,10 +4,12 @@
   "scripts": {
     "start": "bun --watch src/index.ts",
     "test": "bun --watch test --preload ./tests/index.ts",
-    "generate:oas": "bun run scripts/generate-oas.ts"
+    "generate:oas": "bun run scripts/generate-oas.ts",
+    "seed": "bun run scripts/seed.ts"
   },
   "devDependencies": {
     "@types/bun": "^1.2.18",
+    "drizzle-kit": "^0.31.4",
     "eslint": "^9.30.1",
     "neostandard": "^0.12.2",
     "npm": "^11.4.2"
@@ -21,8 +23,11 @@
     "@hono/tsyringe": "^1.0.1",
     "@hono/typebox-validator": "^0.3.3",
     "@sinclair/typebox": "^0.34.37",
+    "dotenv": "^17.2.0",
+    "drizzle-orm": "^0.44.2",
     "hono": "^4.8.4",
     "hono-openapi": "^0.4.8",
+    "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2"
   }
 }
